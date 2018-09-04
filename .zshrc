@@ -105,7 +105,7 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=238
 
 export PATH=$PATH:/$HOME/.bin
 bindkey '^ ' autosuggest-toggle
-(cd ~ && rsync -a .zshrc .spacemacs .my_functions.sh .vimrc projetos/dotfiles/)
+(cd ~ && rsync -a .zshrc .spacemacs .my_functions.sh .vimrc .oh-my-zsh/themes/catks.zsh-theme projetos/dotfiles/)
 source ~/.vagas.env
 source ~/.my_functions.sh
 # (cd ~ && for f in .*.env;do source .vagas.env;done)

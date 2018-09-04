@@ -63,10 +63,11 @@ deploy_qa() {
 }
 
 merged_prs_from_last_tag() {
-  echo `git log --oneline --decorate  | grep -B 100 -m 2 "tag:" | grep "pull request" | awk '{print $1}' | xargs git show --format='%b' | grep -v Approved | grep -v "^$" | sed 's/^[[:space:]]*\(.*\)/   * \1/'`
+  local result=`git log --oneline --decorate  | grep -B 100 -m 1 "tag:" | grep "pull request" | awk '{print $1}' | xargs git show --format='%b' | grep -v Approved | grep -v "^$" | sed 's/^[[:space:]]*\(.*\)/   * \1/'`
+  echo "$result"
 }
 
-# Example: next_changelog 1.1.1
+# usage: next_changelog 1.1.1
 next_changelog() {
   local change_list=`merged_prs_from_last_tag`
   local time=`date +'%d de %B de %Y'`
@@ -74,11 +75,20 @@ next_changelog() {
   echo "## $version - $time\n$change_list"
 }
 
-# update_changelog() {
-#   chnagelog=`next_changelog`
-#   echo "Diff Release"
-#   echo $changelog
-#   echo "Which version"
-# }
+# TODO: infer the next tag if none is passed
+# TODO: infer the changelog filename
+# usage: update_changelog 1.2.3
+update_changelog() {
+  changelog=`next_changelog`
+  echo "Diff Release"
+  echo "---------------------------"
+  echo $changelog
+  echo "---------------------------"
+  echo "Type Enter to continue or CTRL-C to cancel"
+  read
+  echo "Updating Changelog"
+  { echo -n "$changelog" ; echo; echo; cat CHANGELOG.md; } > CHANGELOG.temp
+  mv CHANGELOG.temp CHANGELOG.md
+}
 
 
