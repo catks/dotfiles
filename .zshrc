@@ -7,8 +7,8 @@ export ZSH=/Users/carlos.atkinson/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-#ZSH_THEME="TheOne"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="catks"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -92,12 +92,20 @@ alias starwars="telnet towel.blinkenlights.nl"
 eval "$(rbenv init -)"
 export EDITOR=vim
 alias v='f -e vim'
-
-
+alias gmlb='git merge @{-1}'
+alias gptp='git push --tags && git push'
+alias gdc='git diff --cached'
+alias gclb='git checkout -'
+alias dcm='docker-compose'
+alias rubocop_branch='git diff --name-only origin/master `git rev-parse --abbrev-ref HEAD` | grep '\.rb' | xargs rubocop'
 # Set Spaceship ZSH as a prompt
 #autoload -U promptinit; promptinit
 #prompt Spaceship
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=238
 
-# bindkey '^ ' autosuggest-fetch
-rsync -a .zshrc .spacemacs .vimrc projetos/dotfiles
+export PATH=$PATH:/$HOME/.bin
+bindkey '^ ' autosuggest-toggle
+(cd ~ && rsync -a .zshrc .spacemacs .my_functions.sh .vimrc projetos/dotfiles/)
+source ~/.vagas.env
+source ~/.my_functions.sh
+# (cd ~ && for f in .*.env;do source .vagas.env;done)
