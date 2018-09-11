@@ -79,7 +79,7 @@ next_changelog() {
 # TODO: infer the changelog filename
 # usage: update_changelog 1.2.3
 update_changelog() {
-  changelog=`next_changelog`
+  local changelog=`next_changelog $1`
   echo "Diff Release"
   echo "---------------------------"
   echo $changelog
@@ -90,5 +90,11 @@ update_changelog() {
   { echo -n "$changelog" ; echo; echo; cat CHANGELOG.md; } > CHANGELOG.temp
   mv CHANGELOG.temp CHANGELOG.md
 }
+
+start_http_for_current_folder(){
+  local port=${1:-8000}
+  ruby -rwebrick -e "WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd).start"
+}
+
 
 
