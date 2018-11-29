@@ -62,8 +62,9 @@ deploy_qa() {
   build_in_jenkins
 }
 
+
 merged_prs_from_last_tag() {
-  local result=`git log --oneline --decorate  | grep -B 100 -m 1 "tag:" | grep "pull request" | awk '{print $1}' | xargs git show --format='%b' | grep -v Approved | grep -v "^$" | sed 's/^[[:space:]]*\(.*\)/   * \1/'`
+  local result=`git log --oneline --decorate  | grep -B 100 -m 1 "tag:" | grep "pull request" | awk '{print $1}' | xargs git show --format='%b' | grep -v Approved | grep -v "^$" | grep -E "\[.*\]" | sed 's/^[[:space:]]*\(.*\)/ * \1/'`
   echo "$result"
 }
 
@@ -73,6 +74,11 @@ next_changelog() {
   local time=`date +'%d de %B de %Y'`
   local version=$1
   echo "## $version - $time\n$change_list"
+}
+
+infer_tag() {
+  local last_tag=`semver_tags | grep -Ev 'rc' | head -n 1`
+
 }
 
 # TODO: infer the next tag if none is passed
@@ -91,10 +97,52 @@ update_changelog() {
   mv CHANGELOG.temp CHANGELOG.md
 }
 
+choose_version() {
+echo 'Diff from last tag'
+echo "---------------------------"
+echo merged_prs_from_last_tag
+echo "---------------------------"
+options=("Major" "Minor" "Patch")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Major")
+            echo "you chose choice 1"
+            ;;
+        "Minor")
+            echo "you chose choice 2"
+            ;;
+        "Patch 3")
+            echo "you chose choice $REPLY which is $opt"
+            ;;
+    esac
+done
+}
+
+deploy_prod() {
+  echo "Fetching"
+  git fetch
+  echo "Checkout to master"
+  git checkout master
+  echo "Updating master"
+  git pull
+  update_changelog $1
+  git add CHANGELOG.md
+  git commit -m 'Updates CHANGELOG.md'
+  git tag $1
+  git push --tags && git push
+  # TODO: Add build to Jenkins
+}
+
+
 start_http_for_current_folder(){
   local port=${1:-8000}
   ruby -rwebrick -e "WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd).start"
 }
 
-
+# Attach in a running container of compose
+dcm_attach_to() {
+ local container=`docker-compose ps | grep $1 | awk '{print $1}' | head -n 1`
+ docker attach $container
+}
 

@@ -27,6 +27,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'wincent/command-t'
 Plug 'airblade/vim-rooter'
+Plug 'kylef/apiblueprint.vim'
 " Ruby
 Plug 'ngmy/vim-rubocop'
 
@@ -104,6 +105,9 @@ noremap <expr> <Leader>F ':CtrlSF ' . expand('<cword>')
 " Searchs with Ag
 noremap <Leader>sp :Ag<space>
 noremap <expr> <Leader>sP ':Ag ' . expand('<cword>')
+
+" Search current file
+nnoremap <expr> <Leader>/ '/ ' . expand('<cword>')
 
 "nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
@@ -245,3 +249,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:CommandTWildIgnore=&wildignore . ",*/node_modules"
