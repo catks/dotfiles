@@ -17,7 +17,7 @@ build_in_jenkins() {
 
 semver_tags() {
   # git log --oneline --decorate | grep -Eo '\d+\.\d+\.\d+(-rc\.\d+)*' | cat
-  git tag | grep -Eo '\d+\.\d+\.\d+(-rc\.\d+)*' | sort -Vr | cat
+  git tag | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)*' | sort -Vr | cat
 }
 
 up_special_semver() {
@@ -64,7 +64,7 @@ deploy_qa() {
 
 
 merged_prs_from_last_tag() {
-  local result=`git log --oneline --decorate  | grep -B 100 -m 1 "tag:" | grep "pull request" | awk '{print $1}' | xargs git show --format='%b' | grep -v Approved | grep -v "^$" | grep -E "\[.*\]" | sed 's/^[[:space:]]*\(.*\)/ * \1/'`
+  local result=`git log --oneline --decorate  | grep -B 100 -m 1 "tag:" | grep "pull request" | awk '{print $1}' | xargs git show --format='%b' | grep -v Approved | grep -v "^$" | grep -E "^[[:space:]]*\[.*\]" | sed 's/^[[:space:]]*\(.*\)/ * \1/'`
   echo "$result"
 }
 
@@ -81,6 +81,9 @@ infer_tag() {
 
 }
 
+last_stable_tag() {
+  semver_tags | grep -v 'rc' | head -n 1
+}
 # TODO: infer the next tag if none is passed
 # TODO: infer the changelog filename
 # usage: update_changelog 1.2.3
@@ -98,25 +101,27 @@ update_changelog() {
 }
 
 choose_version() {
-echo 'Diff from last tag'
-echo "---------------------------"
-echo merged_prs_from_last_tag
-echo "---------------------------"
-options=("Major" "Minor" "Patch")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "Major")
-            echo "you chose choice 1"
-            ;;
-        "Minor")
-            echo "you chose choice 2"
-            ;;
-        "Patch 3")
-            echo "you chose choice $REPLY which is $opt"
-            ;;
-    esac
-done
+  clear
+  echo 'Diff from last tag'
+  echo "---------------------------"
+  echo `merged_prs_from_last_tag ${last_stable_tag}`
+  echo "---------------------------"
+  echo "Select the version number to increment:"
+  echo "1. Major"
+  echo "2. Minor"
+  echo "3. Patch"
+  read opt
+  case $opt in
+    1)
+      echo "major"
+      ;;
+    2)
+      echo "minor"
+      ;;
+    3)
+      echo "patch"
+      ;;
+  esac
 }
 
 deploy_prod() {
