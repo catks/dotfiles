@@ -55,6 +55,7 @@ tag_next_release_candidate() {
 deploy_qa() {
   echo "Fetching"
   git fetch
+  git pull origin `git_current_branch` 2> /dev/null || true
   echo "Updating with master"
   git merge origin/master
 

@@ -96,8 +96,9 @@ alias gmlb='git merge @{-1}'
 alias gptp='git push --tags && git push'
 alias gdc='git diff --cached'
 alias gclb='git checkout -'
+alias gp!='git push --force'
 alias dcm='docker-compose'
-alias rubocop_branch='git diff --name-only origin/master `git rev-parse --abbrev-ref HEAD` | grep '\.rb' | xargs rubocop'
+alias rubocop_branch='git diff --name-only origin/master `git rev-parse --abbrev-ref HEAD` | grep '\.rb' | xargs rubocop --force-exclusion'
 # Set Spaceship ZSH as a prompt
 #autoload -U promptinit; promptinit
 #prompt Spaceship
