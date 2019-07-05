@@ -57,7 +57,7 @@ deploy_qa() {
   git fetch
   git pull origin `git_current_branch` 2> /dev/null || true
   echo "Updating with master"
-  git merge origin/master
+  git merge --no-ff origin/master
 
   tag_next_release_candidate
   build_in_jenkins
