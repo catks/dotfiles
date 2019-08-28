@@ -17,7 +17,7 @@ build_in_jenkins() {
 
 semver_tags() {
   # git log --oneline --decorate | grep -Eo '\d+\.\d+\.\d+(-rc\.\d+)*' | cat
-  git tag | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)*' | sort -Vr | cat
+  git tag | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)*' | sed 's/\([0-9]\.[0-9]\.[0-9]$\)/\1-zzzzzzzzzz/' | sort -Vr |  sed 's/-zzzzzzzzzz//' | cat
 }
 
 up_special_semver() {

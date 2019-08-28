@@ -11,6 +11,7 @@ Plug 'nightsense/snow'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'skreek/skeletor.vim'
+Plug 'brooth/far.vim'
 
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug '/usr/local/opt/fzf'
@@ -41,6 +42,9 @@ Plug 'w0rp/ale'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-session'
 Plug 'tpope/vim-fugitive'
+
+
+Plug 'kchmck/vim-coffee-script'
 call plug#end()
 
 " Airline Config
