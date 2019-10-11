@@ -1,6 +1,8 @@
 # Funções
 wait_deploy() {
-  until (curl -s $1 | grep $2) do; sleep 2 && echo 'Esperando Nova Versão'; done && echo 'Fez deploy'
+  until (curl -s $1 | grep $2) do 
+    sleep 2 && echo 'Esperando Nova Versão' 
+  done && echo 'Fez deploy'
 }
 
 top_big_files() {
