@@ -90,7 +90,8 @@ source $ZSH/oh-my-zsh.sh
 alias starwars="telnet towel.blinkenlights.nl"
 
 eval "$(rbenv init -)"
-export EDITOR=vim
+export EDITOR=nvim
+alias vim='nvim'
 alias v='f -e vim'
 alias gmlb='git merge @{-1}'
 alias gptp='git push --tags && git push'
