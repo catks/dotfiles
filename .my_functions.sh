@@ -150,7 +150,15 @@ start_http_for_current_folder(){
 
 # Attach in a running container of compose
 dcm_attach_to() {
- local container=`docker-compose ps | grep $1 | awk '{print $1}' | head -n 1`
- docker attach $container
+  local container=`docker-compose ps | grep $1 | awk '{print $1}' | head -n 1`
+  docker attach $container
+}
+
+touchy() {
+  mkdir -p "$(dirname "$1")" && touch "$1"
+}
+
+fh() {
+  print -z $(history | awk '{$1="";print}' | sort | uniq | fzf)
 }
 
