@@ -62,7 +62,6 @@ deploy_qa() {
   git merge --no-ff origin/master
 
   tag_next_release_candidate
-  build_in_jenkins
 }
 
 
@@ -161,4 +160,3 @@ touchy() {
 fh() {
   print -z $(history | awk '{$1="";print}' | sort | uniq | fzf)
 }
-

@@ -114,4 +114,7 @@ bindkey '^ ' autosuggest-toggle
 #source ~/.my_functions.sh
 # (cd ~ && for f in .*.env;do source .vagas.env;done)
 alias djin='RBENV_VERSION=2.6.5 djin'
-alias verto='docker run -v ~/.gitconfig:/etc/gitconfig -v $(pwd):/usr/src/project -v $HOME/.ssh/known_hosts:/root/.ssh/known_hosts -v $HOME/.ssh/id_rsa:/root/.ssh/id_rsa -e SSH_PRIVATE_KEY=/root/.ssh/id_rsa -it catks/verto:0.4.1'
+alias verto='docker run -v ~/.gitconfig:/etc/gitconfig -v $(pwd):/usr/src/project -v $HOME/.ssh/known_hosts:/root/.ssh/known_hosts -v $HOME/.ssh/id_rsa:/root/.ssh/id_rsa -e SSH_PRIVATE_KEY=/root/.ssh/id_rsa -it catks/verto:0.8.0'
+alias djin='RBENV_VERSION=2.5.1 djin'
+alias vagas_rollback='RBENV_VERSION=2.5.1 vagas_rollback'
+alias aell='RBENV_VERSION=2.5.1 aell'

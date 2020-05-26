@@ -2,8 +2,8 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 runtime macros/matchit.vim
 
 call plug#begin('~/.vim/plugged')
-"Plug 'vim-syntastic/syntastic'
-"Plug 'bling/vim-airline'
+Plug 'vim-syntastic/syntastic'
+Plug 'bling/vim-airline'
 
 Plug 'jordwalke/flatlandia'
 Plug 'jpo/vim-railscasts-theme'
@@ -28,13 +28,13 @@ Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterEnable' }
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
-Plug 'wincent/command-t' " For mac with vim installed with brew make sure to build with the ruby installed by brew, like: /usr/local/Cellar/ruby/2.6.5/bin/ruby extconf.rb
+Plug 'wincent/command-t'
 Plug 'airblade/vim-rooter'
 Plug 'kylef/apiblueprint.vim'
 " Ruby
-""Plug 'ngmy/vim-rubocop'
+Plug 'ngmy/vim-rubocop'
+Plug 'vim-ruby/vim-ruby'
 
-Plug 'AndrewRadev/switch.vim'
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -46,8 +46,8 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 
 Plug 'kchmck/vim-coffee-script'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+
+"Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 " Airline Config
@@ -58,9 +58,6 @@ call plug#end()
 "
 "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 "let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-let g:airline_highlighting_cache = 1
-let g:airline_extensions = []
-
 colorscheme lucario
 
 " Seta a pasta raiz com projetos do git
@@ -122,7 +119,8 @@ nnoremap <expr> <Leader>/ '/ ' . expand('<cword>')
 
 "nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
-"" Alt+j/k moves lines down/up
+
+" Move uma linhas ou blocos selecionados para cima ou para baixo
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
 vnoremap ∆ :m '>+1<CR>gv=gv
@@ -149,8 +147,7 @@ command! ReloadAndInstall execute ":so $MYVIMRC | PlugInstall"
 command! DeleteTrailingSpaces execute "keeppatterns %s/\\s\\+$//e"
 command! GitDiff execute "set splitbelow | new | setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number | r!git diff"
 command! GitDiffStaged execute "set splitbelow | new | setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number | r!git diff --cached"
-command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
-command! ProfileStop :profile pause
+
 " fzf
 
 function! s:find_git_root()
@@ -261,23 +258,3 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:CommandTWildIgnore=&wildignore . ",*/node_modules"
-
-
-" Snippets Config
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" Neovim
-let g:ruby_host_prog = '~/.rbenv/versions/2.6.5/bin/neovim-ruby-host'
