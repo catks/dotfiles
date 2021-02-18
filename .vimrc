@@ -34,10 +34,11 @@ Plug 'kylef/apiblueprint.vim'
 " Ruby
 Plug 'ngmy/vim-rubocop'
 Plug 'vim-ruby/vim-ruby'
+Plug 'andrewradev/switch.vim'
 
 " Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 " Lint
 Plug 'w0rp/ale'
 "
@@ -253,8 +254,20 @@ augroup vimrcEx
   " endif
 augroup END
 
+au BufRead,BufNewFile Vertofile set filetype=ruby
+au BufRead,BufNewFile Vertofile set syntax=ruby
+
+" autocmd FileType Vertofile setlocal commentstring=#
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:CommandTWildIgnore=&wildignore . ",*/node_modules"
+
+
+" let s:djin_tasks = system('djin | grep lint:rubocop')
+
+" if executable('djin') && s:djin_tasks !~ 'rubocop'
+"   let g:ale_ruby_rubocop_executable='djin lint:rubocop'
+" endif

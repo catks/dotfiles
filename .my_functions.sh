@@ -160,3 +160,14 @@ touchy() {
 fh() {
   print -z $(history | awk '{$1="";print}' | sort | uniq | fzf)
 }
+
+function rbenv_all() {
+  local rbenv_path=`rbenv root`
+
+
+  for ruby in $(ls $rbenv_path/versions); do
+    echo "Running RBENV_VERSION=$ruby $*"
+    RBENV_VERSION=$ruby $*
+  done
+}
+

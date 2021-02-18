@@ -99,10 +99,9 @@ alias gptp='git push --tags && git push'
 alias gdc='git diff --cached'
 alias gclb='git checkout -'
 alias gp!='git push --force'
+alias cdr='cd `git rev-parse --show-toplevel`'
 alias dcm='docker-compose'
 alias rubocop_branch='git diff --name-only origin/master `git rev-parse --abbrev-ref HEAD` | grep '\.rb' | xargs rubocop --force-exclusion'
-alias upgrade='sudo apt update && sudo apt upgrade'
-
 # Set Spaceship ZSH as a prompt
 #autoload -U promptinit; promptinit
 #prompt Spaceship
