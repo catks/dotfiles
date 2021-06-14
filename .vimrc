@@ -14,9 +14,7 @@ Plug 'skreek/skeletor.vim'
 Plug 'brooth/far.vim'
 
 Plug 'martinda/Jenkinsfile-vim-syntax'
-"Plug '/usr/local/opt/fzf'
-"Plug '/home/linuxbrew/.linuxbrew/bin/fzf'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'vim-airline/vim-airline'
@@ -105,7 +103,6 @@ nnoremap <Leader>\ :vsp <CR>
 nnoremap <Leader>- :sp <CR>
 nnoremap <Leader>. :winc w <CR>
 nnoremap <Leader>vd :GitGutterEnable <CR>
-nnoremap <Leader>r :CommandTFlush <CR>
 
 "Searchs with CtrlSF
 nnoremap <Leader>f :CtrlSF <CR>
